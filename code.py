@@ -10,10 +10,8 @@ def parse_rules(rules) -> list:
                 result.append([oper, set(incoming), rule['then']])
                 break
 
+    result.sort()
     return result
-
-def sort_rules(rules) -> list:
-
 
 a = generate_simple_rules(10, 4, 5)
 b = parse_rules(a)
