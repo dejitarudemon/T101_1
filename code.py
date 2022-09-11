@@ -1,6 +1,3 @@
-from lab1 import generate_simple_rules
-
-
 def parse_rules(rules) -> list:
     result = []
     for rule in rules:
@@ -13,8 +10,5 @@ def parse_rules(rules) -> list:
     result.sort()
     return result
 
-a = generate_simple_rules(10, 4, 5)
-b = parse_rules(a)
 
-print(a)
-print(b)
+def check_facts(rules, facts) -> list:
