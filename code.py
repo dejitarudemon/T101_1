@@ -11,13 +11,14 @@ def parse_rules(rules) -> dict:
 
 
 def check_validate_rules(rules) -> dict:
+    rules = parse_rules(rules)
     opers = ('and', 'or', 'not')
     for oper in opers:
         rule = rules[oper]
         for i in range(0, len(rule) - 1):
             for j in range(i + 1, len(rule)):
                 if rule[i][0] == rule[j][0] and rule[i][1] != rule[j][1]:
-                    rule[i][1] = rule[j][1] = ['Unknown']
+                    rule[i][1] = rule[j][1] = 'Unknown'
 
     return rules
 
