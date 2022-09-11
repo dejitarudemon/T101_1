@@ -7,7 +7,7 @@ def parse_rules(rules) -> list:
         for oper in ('or', 'and', 'not'):
             incoming = rule['if'].get(oper)
             if incoming:
-                result.append([oper, incoming, rule['then']])
+                result.append([oper, set(incoming), rule['then']])
                 break
 
     result.sort()
@@ -24,7 +24,7 @@ def check_facts(rules, facts) -> dict:
             result[i] = all([z in facts for z in rule[1]])
 
         if rule[0] == 'not':
-            result[i] = not all([z in facts for z in rule[1]])
+            result[i] = not any([z in facts for z in rule[1]])
 
     return result
 
