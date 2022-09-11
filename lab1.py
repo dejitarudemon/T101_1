@@ -101,26 +101,25 @@ def generate_rand_facts(code_max, M):
     return facts
 
 
-# samples:
-print(generate_simple_rules(100, 4, 10))
-print(generate_random_rules(100, 4, 10))
-print(generate_stairway_rules(100, 4, 10, ["or"]))
-print(generate_ring_rules(100, 4, 10, ["or"]))
-
-# generate rules and facts and check time
-time_start = time()
-N = 100000
-M = 1000
-rules = generate_simple_rules(100, 4, N)
-facts = generate_rand_facts(100, M)
-print("%d rules generated in %f seconds" % (N, time() - time_start))
-
-# load and validate rules
-# YOUR CODE HERE
-
-# check facts vs rules
-time_start = time()
-
-# YOUR CODE HERE
-
-print("%d facts validated vs %d rules in %f seconds" % (M, N, time() - time_start))
+# # samples:
+# print(generate_simple_rules(100, 4, 10))
+# print(generate_random_rules(100, 4, 10))
+# print(generate_stairway_rules(100, 4, 10, ["or"]))
+# print(generate_ring_rules(100, 4, 10, ["or"]))
+#
+# # generate rules and facts and check time
+# time_start = time()
+# N = 100000
+# M = 1000
+# rules = generate_simple_rules(100, 4, N)
+# facts = generate_rand_facts(100, M)
+# print("%d rules generated in %f seconds" % (N, time() - time_start))
+#
+# # load and validate rules
+# # YOUR CODE HERE
+# # check facts vs rules
+# time_start = time()
+#
+# # YOUR CODE HERE
+#
+# print("%d facts validated vs %d rules in %f seconds" % (M, N, time() - time_start))
