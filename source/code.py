@@ -1,42 +1,34 @@
-def parse_rules(rules) -> dict:
-    result = {'and': [], 'or': [], 'not': []}
+def parse_rules(rules) -> list:
+    result = []
     for rule in rules:
         for oper in ('and', 'or', 'not'):
             incoming = rule['if'].get(oper)
             if incoming:
-                result[oper].append([set(incoming), rule['then']])
+                result.append([oper, set(incoming), rule['then']])
                 break
 
+    result.sort()
     return result
 
 
-def check_validate_rules(rules) -> dict:
+def check_validate_rules(rules) -> list:
     rules = parse_rules(rules)
-    opers = ('and', 'or', 'not')
-    for oper in opers:
-        rule = rules[oper]
-        for i in range(0, len(rule) - 1):
-            for j in range(i + 1, len(rule)):
-                if rule[i][0] == rule[j][0] and rule[i][1] != rule[j][1]:
-                    rule[i][1] = rule[j][1] = 'Unknown'
+    for i in range(0, len(rules) - 1):
+        for j in range(i + 1):
+            if rules[i][0] == rules[j][0] and rules[i][1] == rules[j][1] and rules[i][2] != rules[j][2]:
+                rules[i][2] = rules[j][2] = -1
 
     return rules
 
 
 def check_facts(rules, facts) -> list:
     result = []
-    opers = ('and', 'or', 'not')
-    for oper in opers:
-        rule = rules[oper]
-        for r in rule:
-            if oper == 'or':
-                if any([z in facts for z in r[0]]):
-                    result.append(r[1])
-            if oper == 'and':
-                if all([z in facts for z in r[0]]):
-                    result.append(r[1])
-            if oper == 'not':
-                if not any([z in facts for z in r[0]]):
-                    result.append(r[1])
+    for rule in rules:
+        if rule[0] == 'or':
+            result.append(rule[2] if any([z in facts for z in rule[1]]) else 0)
+        if rule[0] == 'and':
+            result.append(rule[2] if all([z in facts for z in rule[1]]) else 0)
+        if rule[0] == 'not':
+            result.append(rule[2] if not any([z in facts for z in rule[1]]) else 0)
 
     return result
