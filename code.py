@@ -4,7 +4,7 @@ from lab1 import generate_simple_rules, generate_rand_facts
 def parse_rules(rules) -> dict:
     result = {'and': [], 'or': [], 'not': []}
     for rule in rules:
-        for oper in ('or', 'and', 'not'):
+        for oper in ('and', 'or', 'not'):
             incoming = rule['if'].get(oper)
             if incoming:
                 result[oper].append([set(incoming), rule['then']])
@@ -12,10 +12,17 @@ def parse_rules(rules) -> dict:
 
     return result
 
-def check_validate_rules(rules) -> list:
 
-    for rule in rules:
-        pass
+def check_validate_rules(rules) -> dict:
+    opers = ('and', 'or', 'not')
+    for oper in opers:
+        rule = rules[oper]
+        for i in range(0, len(rule) - 1):
+            for j in range(i + 1, len(rule)):
+                if rule[i][0] == rule[j][0]:
+                    rule[i][1] = rule[j][1] = ['Unknown']
+
+    return rules
 
 
 def check_facts(rules, facts) -> dict:
@@ -39,4 +46,4 @@ b = parse_rules(a)
 print(a)
 print(b)
 print(f)
-#print(check_facts(b, f))
+# print(check_facts(b, f))
