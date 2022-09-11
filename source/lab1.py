@@ -120,8 +120,10 @@ print(f"{N} rules generated in {round(time() - time_start, 6)} seconds")
 # load and validate rules
 # YOUR CODE HERE
 time_start = time()
+
 rules = check_validate_rules(rules)
 print(f"{N} rules validated {round(time() - time_start, 6)} seconds")
+
 # check facts vs rules
 time_start = time()
 

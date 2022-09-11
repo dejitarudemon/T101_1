@@ -18,13 +18,14 @@ def check_validate_rules(rules) -> list:
 
 
 def check_facts(rules, facts) -> list:
+    set_facts = set(facts)
     result = []
     for rule in rules:
         if rule[0] == 'or':
-            result.append(rule[2] if any([z in facts for z in rule[1]]) else 0)
+            result.append(rule[2] if any([z in set_facts for z in rule[1]]) else 0)
         if rule[0] == 'and':
-            result.append(rule[2] if all([z in facts for z in rule[1]]) else 0)
+            result.append(rule[2] if all([z in set_facts for z in rule[1]]) else 0)
         if rule[0] == 'not':
-            result.append(rule[2] if not any([z in facts for z in rule[1]]) else 0)
+            result.append(rule[2] if not any([z in set_facts for z in rule[1]]) else 0)
 
     return result
