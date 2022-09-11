@@ -1,12 +1,8 @@
 def parse_rules(rules) -> list:
     result = []
     for rule in rules:
-        for oper in ('and', 'or', 'not'):
-            incoming = rule['if'].get(oper)
-            if incoming:
-                result.append([oper, set(incoming), rule['then']])
-                break
-
+        oper = ''.join(rule['if'].keys())
+        result.append([oper, set(rule['if'][oper]), rule['then']])
     result.sort()
     return result
 
@@ -14,7 +10,7 @@ def parse_rules(rules) -> list:
 def check_validate_rules(rules) -> list:
     rules = parse_rules(rules)
     for i in range(0, len(rules) - 1):
-        for j in range(i + 1):
+        for j in range(i + 1, len(rules)):
             if rules[i][0] == rules[j][0] and rules[i][1] == rules[j][1] and rules[i][2] != rules[j][2]:
                 rules[i][2] = rules[j][2] = -1
 
