@@ -113,6 +113,7 @@ N = 100000
 M = 1000
 rules = generate_simple_rules(100, 4, N)
 facts = generate_rand_facts(100, M)
+print(facts)
 print("%d rules generated in %f seconds" % (N, time() - time_start))
 
 # load and validate rules
