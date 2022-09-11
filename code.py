@@ -1,23 +1,27 @@
 from lab1 import generate_simple_rules, generate_rand_facts
 
 
-def parse_rules(rules) -> list:
-    result = []
+def parse_rules(rules) -> dict:
+    result = {'and': [], 'or': [], 'not': []}
     for rule in rules:
         for oper in ('or', 'and', 'not'):
             incoming = rule['if'].get(oper)
             if incoming:
-                result.append([oper, set(incoming), rule['then']])
+                result[oper].append([set(incoming), rule['then']])
                 break
 
-    result.sort()
     return result
+
+def check_validate_rules(rules) -> list:
+
+    for rule in rules:
+        pass
 
 
 def check_facts(rules, facts) -> dict:
     result = {}
-    for i, rule in enumerate(rules):
-        if rule[0] == 'or':
+    for i, oper in enumerate(rules):
+        if oper == 'or':
             result[i] = any([z in facts for z in rule[1]])
 
         if rule[0] == 'and':
@@ -35,4 +39,4 @@ b = parse_rules(a)
 print(a)
 print(b)
 print(f)
-print(check_facts(b, f))
+#print(check_facts(b, f))
