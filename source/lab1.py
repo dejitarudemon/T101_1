@@ -1,6 +1,6 @@
 from random import choice, shuffle, randint
 from time import time
-from code import check_validate_rules, check_facts
+import code
 
 
 def generate_simple_rules(code_max, n_max, n_generate, log_oper_choice=["and", "or", "not"]):
@@ -115,18 +115,18 @@ M = 1000
 rules = generate_simple_rules(100, 4, N)
 facts = generate_rand_facts(100, M)
 
+
 print(f"{N} rules generated in {round(time() - time_start, 6)} seconds")
 
 # load and validate rules
 # YOUR CODE HERE
 time_start = time()
+new_rules = code.check_validate_rules(rules)
 
-rules = check_validate_rules(rules)
 print(f"{N} rules validated {round(time() - time_start, 6)} seconds")
 
 # check facts vs rules
 time_start = time()
+result = code.check_facts(new_rules, facts)
 
-# YOUR CODE HERE
-check_facts(rules, facts)
 print(f"{M} facts validated vs {N} rules in {round(time() - time_start, 6)} seconds")
